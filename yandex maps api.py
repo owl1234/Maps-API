@@ -17,7 +17,7 @@ class Label:
         self.text = text
         self.bgcolor = bcolor
         self.font_color = pygame.Color(fcolor)
-        # Рассчитываем размер шрифта в зависимости от высоты
+        # Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р° РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РІС‹СЃРѕС‚С‹
         self.font = pygame.font.Font(None, self.rect.height - 10)
         self.rendered_text = None
         self.rendered_rect = None
@@ -28,7 +28,7 @@ class Label:
             surface.fill(pygame.Color(self.bgcolor), self.rect)
         self.rendered_text = self.font.render(self.text, 1, self.font_color)
         self.rendered_rect = self.rendered_text.get_rect(x=self.rect.x + 2, centery=self.rect.centery)
-            # выводим текст
+            # РІС‹РІРѕРґРёРј С‚РµРєСЃС‚
         surface.blit(self.rendered_text, self.rendered_rect)
 lon = None
 lat = None
@@ -44,7 +44,7 @@ class Button(Label):
         self.font = pygame.font.Font(None, self.rect.height - 20)
         self.bgcolor = pygame.Color("blue")
         self.text = text
-        # при создании кнопка не нажата
+        # РїСЂРё СЃРѕР·РґР°РЅРёРё РєРЅРѕРїРєР° РЅРµ РЅР°Р¶Р°С‚Р°
         self.pressed = False
 
     def render(self, surface):
@@ -61,12 +61,12 @@ class Button(Label):
             color2 = pygame.Color("white")
             self.rendered_rect = self.rendered_text.get_rect(x=self.rect.x + 7, centery=self.rect.centery + 2)
 
-        # рисуем границу
+        # СЂРёСЃСѓРµРј РіСЂР°РЅРёС†Сѓ
         pygame.draw.rect(surface, color1, self.rect, 2)
         pygame.draw.line(surface, color2, (self.rect.right - 1, self.rect.top), (self.rect.right - 1, self.rect.bottom), 2)
         pygame.draw.line(surface, color2, (self.rect.left, self.rect.bottom - 1),
                          (self.rect.right, self.rect.bottom - 1), 2)
-        # выводим текст
+        # РІС‹РІРѕРґРёРј С‚РµРєСЃС‚
         surface.blit(self.rendered_text, self.rendered_rect)
 
     def get_event(self, event):
@@ -76,9 +76,9 @@ class Button(Label):
         except:
             pass
         if self.pressed == True or flag_flag != 0:
-            if self.text == "Найти" and (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 or flag_flag != 0):
+            if self.text == "РќР°Р№С‚Рё" and (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 or flag_flag != 0):
                 #self.pressed = self.rect.collidepoint(event.pos)
-                # послать запрос
+                # РїРѕСЃР»Р°С‚СЊ Р·Р°РїСЂРѕСЃ
                 search_str = text_in.text
                 #print(search_str)
                 try:
@@ -103,14 +103,14 @@ class Button(Label):
                 #print(address)
                 text_out = TextBox((305, 0, 285, 50), address)
 
-            elif self.text == "Найти" and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            elif self.text == "РќР°Р№С‚Рё" and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 self.pressed = False
 
-            if self.text == "Сброс" and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if self.text == "РЎР±СЂРѕСЃ" and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 flag_of_search = 0
                 flag_flag = 0
 
-            elif self.text == "Сброс" and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            elif self.text == "РЎР±СЂРѕСЃ" and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 self.pressed = False
 
 
@@ -171,9 +171,9 @@ class TextBox(Label):
                              (self.rendered_rect.right + 2, self.rendered_rect.bottom - 2))
 
 gui = GUI()
-b1 = Button((10, 65, 100, 60), "Найти")
-b2 = Button((120, 65, 100, 60), "Сброс")
-# "нажмем" одну для демонстрации
+b1 = Button((10, 65, 100, 60), "РќР°Р№С‚Рё")
+b2 = Button((120, 65, 100, 60), "РЎР±СЂРѕСЃ")
+# "РЅР°Р¶РјРµРј" РѕРґРЅСѓ РґР»СЏ РґРµРјРѕРЅСЃС‚СЂР°С†РёРё
 b1.pressed = True
 b2.pressed = True
 gui.add_element(b1)
@@ -186,17 +186,17 @@ def get_town(search):
     try:
         response = requests.get(search)
         if response:
-            # Преобразуем ответ в json-объект
+            # РџСЂРµРѕР±СЂР°Р·СѓРµРј РѕС‚РІРµС‚ РІ json-РѕР±СЉРµРєС‚
             json_response = response.json()
 
-            # Получаем первый топоним из ответа геокодера.
-            # Согласно описанию ответа он находится по следующему пути:
+            # РџРѕР»СѓС‡Р°РµРј РїРµСЂРІС‹Р№ С‚РѕРїРѕРЅРёРј РёР· РѕС‚РІРµС‚Р° РіРµРѕРєРѕРґРµСЂР°.
+            # РЎРѕРіР»Р°СЃРЅРѕ РѕРїРёСЃР°РЅРёСЋ РѕС‚РІРµС‚Р° РѕРЅ РЅР°С…РѕРґРёС‚СЃСЏ РїРѕ СЃР»РµРґСѓСЋС‰РµРјСѓ РїСѓС‚Рё:
             begin = json_response["response"]["GeoObjectCollection"]
             #print(1)
             found = begin["metaDataProperty"]["GeocoderResponseMetaData"]["found"]
             #print(2)
             if found == 0:
-                print("Не удалось найти требуемый объект. Проверьте правильность названия объекта и выполните запрос ещё раз.")
+                print("РќРµ СѓРґР°Р»РѕСЃСЊ РЅР°Р№С‚Рё С‚СЂРµР±СѓРµРјС‹Р№ РѕР±СЉРµРєС‚. РџСЂРѕРІРµСЂСЊС‚Рµ РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ РЅР°Р·РІР°РЅРёСЏ РѕР±СЉРµРєС‚Р° Рё РІС‹РїРѕР»РЅРёС‚Рµ Р·Р°РїСЂРѕСЃ РµС‰С‘ СЂР°Р·.")
                 return
             #address_of_object = begin["featureMember"][0]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["text"]
             #print(3)
@@ -205,12 +205,12 @@ def get_town(search):
 
             return found_town
         else:
-            print("Ошибка выполнения запроса (coordinates_of_object):")
+            print("РћС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РїСЂРѕСЃР° (coordinates_of_object):")
             print(geocoder_request)
-            print("Http статус:", response.status_code, "(", response.reason, ")")
+            print("Http СЃС‚Р°С‚СѓСЃ:", response.status_code, "(", response.reason, ")")
             return
     except:
-        print("Запрос не удалось выполнить. Проверьте наличие сети Интернет (coordinates_of_object).")
+        print("Р—Р°РїСЂРѕСЃ РЅРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ. РџСЂРѕРІРµСЂСЊС‚Рµ РЅР°Р»РёС‡РёРµ СЃРµС‚Рё РРЅС‚РµСЂРЅРµС‚ (coordinates_of_object).")
         return
 
 def lonlat_distance(a, b):
@@ -258,10 +258,10 @@ def find_first_organisation(lat, lon):
         return -1
 
 
-    # Преобразуем ответ в json-объект
+    # РџСЂРµРѕР±СЂР°Р·СѓРµРј РѕС‚РІРµС‚ РІ json-РѕР±СЉРµРєС‚
     json_response = response.json()
 
-    # Получаем первую найденную организацию.
+    # РџРѕР»СѓС‡Р°РµРј РїРµСЂРІСѓСЋ РЅР°Р№РґРµРЅРЅСѓСЋ РѕСЂРіР°РЅРёР·Р°С†РёСЋ.
     try:
         #print(json_response["features"])
         organization = json_response["features"][0]["properties"]["CompanyMetaData"]
@@ -333,15 +333,15 @@ def coordinates_of_object(search):
     try:
         response = requests.get(search)
         if response:
-            # Преобразуем ответ в json-объект
+            # РџСЂРµРѕР±СЂР°Р·СѓРµРј РѕС‚РІРµС‚ РІ json-РѕР±СЉРµРєС‚
             json_response = response.json()
 
-            # Получаем первый топоним из ответа геокодера.
-            # Согласно описанию ответа он находится по следующему пути:
+            # РџРѕР»СѓС‡Р°РµРј РїРµСЂРІС‹Р№ С‚РѕРїРѕРЅРёРј РёР· РѕС‚РІРµС‚Р° РіРµРѕРєРѕРґРµСЂР°.
+            # РЎРѕРіР»Р°СЃРЅРѕ РѕРїРёСЃР°РЅРёСЋ РѕС‚РІРµС‚Р° РѕРЅ РЅР°С…РѕРґРёС‚СЃСЏ РїРѕ СЃР»РµРґСѓСЋС‰РµРјСѓ РїСѓС‚Рё:
             begin = json_response["response"]["GeoObjectCollection"]
             found = begin["metaDataProperty"]["GeocoderResponseMetaData"]["found"]
             if found == 0:
-                print("Не удалось найти требуемый объект. Проверьте правильность названия объекта и выполните запрос ещё раз.")
+                print("РќРµ СѓРґР°Р»РѕСЃСЊ РЅР°Р№С‚Рё С‚СЂРµР±СѓРµРјС‹Р№ РѕР±СЉРµРєС‚. РџСЂРѕРІРµСЂСЊС‚Рµ РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ РЅР°Р·РІР°РЅРёСЏ РѕР±СЉРµРєС‚Р° Рё РІС‹РїРѕР»РЅРёС‚Рµ Р·Р°РїСЂРѕСЃ РµС‰С‘ СЂР°Р·.")
                 return
             address_of_object = begin["featureMember"][0]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["text"]
             toponym_index = ""
@@ -349,18 +349,18 @@ def coordinates_of_object(search):
                 toponym_index = begin["featureMember"][0]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["Address"]["postal_code"]
                 print(toponym_index)
             except:
-                print("У поискового объекта нет индекса. Уточните адрес для получения полной информации.")
+                print("РЈ РїРѕРёСЃРєРѕРІРѕРіРѕ РѕР±СЉРµРєС‚Р° РЅРµС‚ РёРЅРґРµРєСЃР°. РЈС‚РѕС‡РЅРёС‚Рµ Р°РґСЂРµСЃ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РїРѕР»РЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.")
 
             toponym = begin["featureMember"][0]["GeoObject"]
             toponym_coodrinates = toponym["Point"]["pos"]
             return [toponym_coodrinates, address_of_object, toponym_index]
         else:
-            print("Ошибка выполнения запроса (coordinates_of_object):")
+            print("РћС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РїСЂРѕСЃР° (coordinates_of_object):")
             print(geocoder_request)
-            print("Http статус:", response.status_code, "(", response.reason, ")")
+            print("Http СЃС‚Р°С‚СѓСЃ:", response.status_code, "(", response.reason, ")")
             return
     except:
-        print("Запрос не удалось выполнить. Проверьте наличие сети Интернет (coordinates_of_object).")
+        print("Р—Р°РїСЂРѕСЃ РЅРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ. РџСЂРѕРІРµСЂСЊС‚Рµ РЅР°Р»РёС‡РёРµ СЃРµС‚Рё РРЅС‚РµСЂРЅРµС‚ (coordinates_of_object).")
         return
 
 #def address(ser)
@@ -379,14 +379,14 @@ def get_image(map_params):
         with open(map_file, "wb") as file:
             file.write(response.content)
     except IOError as ex:
-        print("Ошибка записи временного файла:", ex)
+        print("РћС€РёР±РєР° Р·Р°РїРёСЃРё РІСЂРµРјРµРЅРЅРѕРіРѕ С„Р°Р№Р»Р°:", ex)
         sys.exit(2)
 
 
-lat, lon = input().split(', ')    #lat - широта, lon - долгота
+lat, lon = input().split(', ')    #lat - С€РёСЂРѕС‚Р°, lon - РґРѕР»РіРѕС‚Р°
 lat, lon = lon, lat
 map_params = {
-        "ll": lat +"," + lon, # позиционируем карту центром на наш исходный адрес
+        "ll": lat +"," + lon, # РїРѕР·РёС†РёРѕРЅРёСЂСѓРµРј РєР°СЂС‚Сѓ С†РµРЅС‚СЂРѕРј РЅР° РЅР°С€ РёСЃС…РѕРґРЅС‹Р№ Р°РґСЂРµСЃ
         "l": "map",
         "spn": "0.05,0.05"
     }
@@ -503,7 +503,7 @@ while running:
             except:
                 flag_of_org = 0
                 lan1, lon1 = lat2, lon2
-                print("К заданной точке не нашлось ближайших организаций.")
+                print("Рљ Р·Р°РґР°РЅРЅРѕР№ С‚РѕС‡РєРµ РЅРµ РЅР°С€Р»РѕСЃСЊ Р±Р»РёР¶Р°Р№С€РёС… РѕСЂРіР°РЅРёР·Р°С†РёР№.")
             else:
             #print(organiz_address, coorrdd)
             #print(organiz_address)
@@ -513,7 +513,7 @@ while running:
                     #elif flag_flag == -1:
 
                 #print(address_mouse)
-                print("По адресу {0} расположена организация {1}".format(organiz_address, name_of_org))
+                print("РџРѕ Р°РґСЂРµСЃСѓ {0} СЂР°СЃРїРѕР»РѕР¶РµРЅР° РѕСЂРіР°РЅРёР·Р°С†РёСЏ {1}".format(organiz_address, name_of_org))
                 text_out = TextBox((305, 0, 285, 50), organiz_address)
 
 
@@ -529,7 +529,7 @@ while running:
 
 
         if map_file == None:
-            print("Ошибка")
+            print("РћС€РёР±РєР°")
             sys.exit()
 
     text_in.render(screen)
